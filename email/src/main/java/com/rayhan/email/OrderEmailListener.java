@@ -28,13 +28,17 @@ public class OrderEmailListener {
 
     @RabbitListener(queues = "${app.rabbit.order-email-queue:order.email}")
     public void handleOrderEvent(OrderNotification event) {
-        if (event == null || event.getId() == null) {
+        if (event == null || event.getOrderId() == null) {
             return;
         }
 
-        log.info("[LISTENER] Menerima event order #{}", event.getId());
+        if (!EVENT_CREATE.equals(event.getType())) {
+            return;
+        }
 
-        OrderNotification order = fetchOrder(event.getId());
+        log.info("[LISTENER] Menerima event {} untuk order #{}", event.getType(), event.getOrderId());
+
+        OrderNotification order = fetchOrder(event.getOrderId());
         OrderNotification.Produk produk = fetchProduk(event.getProduk_id());
         OrderNotification.Pelanggan pelanggan = fetchPelanggan(event.getPelanggan_id());
 

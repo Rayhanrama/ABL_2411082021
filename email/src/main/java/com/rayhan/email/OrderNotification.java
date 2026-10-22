@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class OrderNotification {
 
+    private String type;
+
+    private Long orderId;
+
     private Long id;
 
     private Long produk_id;
@@ -17,6 +21,22 @@ public class OrderNotification {
     private double total;
 
     public OrderNotification() {
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Long getId() {
