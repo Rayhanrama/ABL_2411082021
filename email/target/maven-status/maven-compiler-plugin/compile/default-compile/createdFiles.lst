@@ -1,0 +1,9 @@
+com\rayhan\email\vo\Order.class
+com\rayhan\email\config\AppConfig.class
+com\rayhan\email\vo\Produk.class
+com\rayhan\email\EmailApplication.class
+com\rayhan\email\service\EmailService.class
+com\rayhan\email\listener\OrderEmailListener.class
+com\rayhan\email\event\OrderEvent.class
+com\rayhan\email\vo\Pelanggan.class
+com\rayhan\email\config\RabbitMQConfig.class
