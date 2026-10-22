@@ -11,6 +11,7 @@ pelanggan-run.log
 eureka-run.log
 produk-run.log
 order-err.log
+logs/
 
 ### Backup patch lokal ###
 *.patch

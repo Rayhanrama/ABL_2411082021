@@ -16,7 +16,13 @@ public class EmailController {
 
     @PostMapping("/send")
     public ResponseEntity<String> sendEmail(@RequestBody EmailRequest request) {
-        emailService.sendSimple(request);
-        return ResponseEntity.ok("Email terkirim ke " + request.getTo());
+        try {
+            emailService.sendSimple(request);
+            return ResponseEntity.ok("Email terkirim ke " + request.getTo());
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body("Gagal kirim ke " + request.getTo() + ": "
+                            + e.getClass().getSimpleName() + " - " + e.getMessage());
+        }
     }
 }

@@ -46,7 +46,11 @@ public class EmailService {
             mailSender.send(message);
             log.info("[MAIL] Email order #{} terkirim ke {}", safeId(order), to);
         } catch (Exception e) {
-            log.error("[MAIL] Gagal mengirim email order #{}: {}", safeId(order), e.getMessage(), e);
+            log.error("[MAIL] Gagal mengirim email order #{}, penerima={}, subjek='{}', akar masalah={}",
+                    safeId(order), to, "Konfirmasi Order #" + safeId(order),
+                    e.getClass().getSimpleName() + ": " + e.getMessage(), e);
+            log.error("[MAIL] Petunjuk: periksa MAIL_USERNAME/MAIL_PASSWORD di .env. "
+                    + "Untuk Gmail gunakan App Password (bukan password akun) dan aktifkan 2FA.");
         }
     }
 
