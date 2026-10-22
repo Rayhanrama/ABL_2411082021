@@ -1,4 +1,4 @@
-package com.rayhan.email.config;
+package com.rayhan.email;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
@@ -7,10 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Konfigurasi RabbitMQ untuk service email.
- * Hanya mendengarkan queue "order.email" yang dipublikasikan oleh service order.
- */
 @Configuration
 public class RabbitMQConfig {
 

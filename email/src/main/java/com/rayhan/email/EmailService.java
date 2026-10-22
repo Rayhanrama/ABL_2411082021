@@ -1,4 +1,4 @@
-package com.rayhan.email.service;
+package com.rayhan.email;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,14 +8,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.rayhan.email.vo.Order;
-import com.rayhan.email.vo.Pelanggan;
-import com.rayhan.email.vo.Produk;
-
-/**
- * Menyusun dan mengirim email notifikasi order via SMTP (Mailtrap Sandbox).
- * Data order/produk/pelanggan diambil lebih dulu oleh OrderEmailListener melalui Eureka.
- */
 @Service
 public class EmailService {
 
@@ -30,7 +22,18 @@ public class EmailService {
     @Value("${app.mail.fallback-to}")
     private String fallbackTo;
 
-    public void sendOrderNotification(Order order, Produk produk, Pelanggan pelanggan) {
+    public void sendSimple(EmailRequest request) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(request.getTo());
+        message.setSubject(request.getSubject());
+        message.setText(request.getMessage());
+        mailSender.send(message);
+        log.info("[MAIL] Email dikirim ke {}", request.getTo());
+    }
+
+    public void sendOrderNotification(OrderNotification order, OrderNotification.Produk produk,
+            OrderNotification.Pelanggan pelanggan) {
         String to = resolveRecipient(pelanggan);
 
         try {
@@ -47,18 +50,19 @@ public class EmailService {
         }
     }
 
-    private String resolveRecipient(Pelanggan pelanggan) {
+    private String resolveRecipient(OrderNotification.Pelanggan pelanggan) {
         if (pelanggan != null && pelanggan.getEmail() != null && !pelanggan.getEmail().isBlank()) {
             return pelanggan.getEmail();
         }
         return fallbackTo;
     }
 
-    private String safeId(Order order) {
+    private String safeId(OrderNotification order) {
         return order != null && order.getId() != null ? String.valueOf(order.getId()) : "?";
     }
 
-    private String buildBody(Order order, Produk produk, Pelanggan pelanggan) {
+    private String buildBody(OrderNotification order, OrderNotification.Produk produk,
+            OrderNotification.Pelanggan pelanggan) {
         StringBuilder sb = new StringBuilder();
         sb.append("Terima kasih telah melakukan order!\n\n");
 

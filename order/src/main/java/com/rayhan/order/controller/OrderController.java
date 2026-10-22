@@ -13,34 +13,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rayhan.order.command.OrderCommandService;
 import com.rayhan.order.entity.Order;
-import com.rayhan.order.entity.OrderView;
 import com.rayhan.order.query.OrderQueryService;
-import com.rayhan.order.repository.OrderRepository;
+import com.rayhan.order.service.OrderService;
 import com.rayhan.order.vo.ResponseTemplate;
 
-/**
- * Controller yang memisahkan jalur Command (write) dan Query (read) sesuai pola CQRS.
- */
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
 
-    // --- COMMAND SIDE (Write) ---
     @Autowired
-    private OrderCommandService orderCommandService;
+    private OrderService orderService;
 
-    // --- QUERY SIDE (Read) ---
     @Autowired
     private OrderQueryService orderQueryService;
 
-    // Dipakai untuk endpoint internal (mis. oleh service email).
-    @Autowired
-    private OrderRepository orderRepository;
-
     @GetMapping
-    public List<OrderView> getAllOrder() {
+    public List<Order> getAllOrder() {
         return orderQueryService.getAllOrder();
     }
 
@@ -49,25 +38,23 @@ public class OrderController {
         return orderQueryService.getOrderWithProdukById(id);
     }
 
-    /**
-     * Endpoint internal: mengembalikan entitas order (write model) apa adanya.
-     * Digunakan service email untuk mengambil data order via Eureka.
-     */
     @GetMapping("/{id}/raw")
     public ResponseEntity<Order> getRawOrderById(@PathVariable Long id) {
-        return orderRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Order order = orderService.getOrderById(id);
+        if (order == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(order);
     }
 
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        return ResponseEntity.ok(orderCommandService.createOrder(order));
+        return ResponseEntity.ok(orderService.saveOrder(order));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
-        Order updated = orderCommandService.updateOrder(id, order);
+        Order updated = orderService.updateOrder(id, order);
         if (updated == null) {
             return ResponseEntity.notFound().build();
         }
@@ -76,7 +63,7 @@ public class OrderController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
-        orderCommandService.deleteOrder(id);
+        orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
 }

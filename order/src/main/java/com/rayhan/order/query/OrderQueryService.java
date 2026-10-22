@@ -9,25 +9,17 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.rayhan.order.entity.OrderView;
-import com.rayhan.order.repository.OrderViewRepository;
+import com.rayhan.order.entity.Order;
+import com.rayhan.order.service.OrderService;
 import com.rayhan.order.vo.Pelanggan;
 import com.rayhan.order.vo.Produk;
 import com.rayhan.order.vo.ResponseTemplate;
 
-/**
- * QUERY SIDE (CQRS - Read).
- * Hanya membaca dari read model (tabel "order_view"), tidak menyentuh
- * write model (tabel "orders") sama sekali.
- *
- * Untuk memperkaya data, service ini memanggil service PRODUK dan PELANGGAN
- * melalui Eureka (DiscoveryClient + RestTemplate).
- */
 @Service
 public class OrderQueryService {
 
     @Autowired
-    private OrderViewRepository orderViewRepository;
+    private OrderService orderService;
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -35,19 +27,18 @@ public class OrderQueryService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<OrderView> getAllOrder() {
-        return orderViewRepository.findAll();
+    public List<Order> getAllOrder() {
+        return orderService.getAllOrder();
     }
 
-    public OrderView getOrderById(Long id) {
-        // id yang dipakai di API adalah id order (order_id), bukan PK read model.
-        return orderViewRepository.findByOrderId(id).orElse(null);
+    public Order getOrderById(Long id) {
+        return orderService.getOrderById(id);
     }
 
     public List<ResponseTemplate> getOrderWithProdukById(Long id) {
         List<ResponseTemplate> responseList = new ArrayList<>();
 
-        OrderView order = getOrderById(id);
+        Order order = getOrderById(id);
         if (order == null) {
             return responseList;
         }

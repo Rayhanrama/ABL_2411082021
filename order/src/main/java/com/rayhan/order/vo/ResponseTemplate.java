@@ -1,9 +1,9 @@
 package com.rayhan.order.vo;
 
-import com.rayhan.order.entity.OrderView;
+import com.rayhan.order.entity.Order;
 
 public class ResponseTemplate {
-    OrderView order;
+    Order order;
     Produk produk;
     Pelanggan pelanggan;
 
@@ -11,17 +11,17 @@ public class ResponseTemplate {
 
     }
 
-    public ResponseTemplate(OrderView order, Produk produk, Pelanggan pelanggan) {
+    public ResponseTemplate(Order order, Produk produk, Pelanggan pelanggan) {
         this.order = order;
         this.produk = produk;
         this.pelanggan = pelanggan;
     }
 
-    public OrderView getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(OrderView order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 

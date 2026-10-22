@@ -2,11 +2,6 @@ package com.rayhan.order.event;
 
 import java.io.Serializable;
 
-/**
- * Event yang dipublikasikan ke RabbitMQ setiap kali terjadi perubahan order.
- *
- * type: CREATE | UPDATE | DELETE
- */
 public class OrderEvent implements Serializable {
 
     public static final String CREATE = "CREATE";

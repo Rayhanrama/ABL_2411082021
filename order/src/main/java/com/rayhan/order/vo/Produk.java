@@ -11,7 +11,6 @@ public class Produk {
     private double harga;
 
     private Long idJenis;
-    
 
     public Produk() {
 
@@ -57,11 +56,11 @@ public class Produk {
         this.harga = harga;
     }
 
-    public Long getIdJenis(){
+    public Long getIdJenis() {
         return idJenis;
     }
 
-    public void SetIdJenis(Long idJenis){
+    public void setIdJenis(Long idJenis) {
         this.idJenis = idJenis;
     }
 }

@@ -1,9 +1,7 @@
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\config\AppConfig.java
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\config\RabbitMQConfig.java
 D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\EmailApplication.java
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\event\OrderEvent.java
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\listener\OrderEmailListener.java
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\service\EmailService.java
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\vo\Order.java
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\vo\Pelanggan.java
-D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\vo\Produk.java
+D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\EmailController.java
+D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\EmailRequest.java
+D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\EmailService.java
+D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\OrderEmailListener.java
+D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\OrderNotification.java
+D:\kuliah\semester5\abl\email\src\main\java\com\rayhan\email\RabbitMQConfig.java
