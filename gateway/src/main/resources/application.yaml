@@ -9,10 +9,18 @@ spring:
       server:
         webmvc:
           routes:
+          - id: AUTH
+            uri: lb://AUTH
+            predicates:
+              - Path=/api/auth/**
           - id: PRODUK
             uri: lb://PRODUK
             predicates:
               - Path=/api/produk/**
+          - id: ORDER-QUERY
+            uri: lb://ORDER-QUERY
+            predicates:
+              - Path=/api/order-query/**
           - id: ORDER-SERVICE
             uri: lb://ORDER
             predicates:
@@ -29,3 +37,8 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+
+# JWT (secret HARUS sama di semua service untuk validasi token)
+app:
+  jwt:
+    secret: rayhan-super-secret-key-for-jwt-signing-2025-min-32-bytes

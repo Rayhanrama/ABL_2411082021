@@ -23,3 +23,6 @@ logs/
 .settings/
 .classpath
 .project
+
+### VS Code multi-root workspace (berisi path lokal) ###
+*.code-workspace

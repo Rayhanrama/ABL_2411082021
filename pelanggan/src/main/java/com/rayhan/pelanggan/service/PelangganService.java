@@ -25,6 +25,10 @@ public class PelangganService {
         return pelangganRepository.findById(id).orElse(null);
     }
 
+    public Pelanggan getPelangganByUserId(Long userId){
+        return pelangganRepository.findByUserId(userId).orElse(null);
+    }
+
     public void deletePelanggan(Long id){
         pelangganRepository.deleteById(id);
     }
@@ -36,6 +40,7 @@ public class PelangganService {
             existingPelanggan.setNama(pelanggan.getNama());
             existingPelanggan.setAlamat(pelanggan.getAlamat());
             existingPelanggan.setJenis_kelamin(pelanggan.getJenis_kelamin());
+            existingPelanggan.setEmail(pelanggan.getEmail());
             return pelangganRepository.save(existingPelanggan);
         }
         return null;

@@ -19,6 +19,13 @@ public class Pelanggan {
 
     private String email;
 
+    /**
+     * ID user (akun login) pemilik profil pelanggan ini.
+     * Ditautkan dari klaim JWT agar tiap pelanggan hanya bisa
+     * mengelola profilnya sendiri.
+     */
+    private Long userId;
+
     public Pelanggan(){
 
     }
@@ -69,6 +76,14 @@ public class Pelanggan {
 
     public void setEmail(String email){
         this.email = email;
+    }
+
+    public Long getUserId(){
+        return userId;
+    }
+
+    public void setUserId(Long userId){
+        this.userId = userId;
     }
 
 }
