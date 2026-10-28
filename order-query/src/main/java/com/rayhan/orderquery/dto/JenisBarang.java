@@ -1,4 +1,4 @@
-package com.rayhan.order.vo;
+package com.rayhan.orderquery.dto;
 
 public class JenisBarang {
    
